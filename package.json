@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "tailwindcss": "^3.4.15"
+  },
+  "name": "go-htmx-tailwind-app",
+  "version": "1.0.0",
+  "description": "This project is a simple web application built using Go, HTMX, and Tailwind CSS. It serves as a demonstration of how to create a dynamic web application with modern frontend technologies while leveraging the Go programming language for the backend.",
+  "main": "tailwind.config.js",
+  "devDependencies": {},
+  "scripts": {
+    "start:tailwind": "npx tailwindcss -i ./src/static/css/main.css -o ./src/static/css/tailwind.css --watch",
+    "start:dev": "go run src/main.go",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
