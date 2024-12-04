@@ -8,8 +8,8 @@
   "main": "tailwind.config.js",
   "devDependencies": {},
   "scripts": {
-    "start:tailwind": "npx tailwindcss -i ./src/static/css/main.css -o ./src/static/css/tailwind.css --watch",
-    "start:dev": "go run src/main.go",
+    "start:tailwind": "npx tailwindcss -i web/static/css/main.css -o web/static/css/tailwind.css --watch",
+    "start:dev": "go run cmd/app/main.go",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

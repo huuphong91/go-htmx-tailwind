@@ -27,7 +27,8 @@
         "esbenp.prettier-vscode",
         "redhat.vscode-yaml",
         "christian-kohler.npm-intellisense",
-        "dbaeumer.vscode-eslint"
+        "dbaeumer.vscode-eslint",
+        "cweijan.vscode-mysql-client2"
       ]
     }
   },
