@@ -1,12 +1,13 @@
 {
   "name": "Go & Node development env (Go 1.23.3, Node 22.11.0)",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "args": {
-      "VARIANT": "1.23.3",
-      "NODE_VERSION": "22.11.0"
-    }
-  },
+  "image": "huuphong91/dev-env",
+  // "build": {
+  //   "dockerfile": "Dockerfile",
+  //   "args": {
+  //     "VARIANT": "1.23.3",
+  //     "NODE_VERSION": "22.11.0"
+  //   }
+  // },
   "runArgs": ["--network", "development"],
   "customizations": {
     "vscode": {

@@ -6,11 +6,20 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     build-essential \
+    zlib1g-dev \
+    libffi-dev \
+    libssl-dev \
+    libsqlite3-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libncurses5-dev \
+    libgdbm-dev \
+    liblzma-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Define build arguments
-ARG VARIANT
-ARG NODE_VERSION
+ARG VARIANT=1.23.3
+ARG NODE_VERSION=22.11.0
 
 # Install NVM
 ENV NVM_DIR=/usr/local/nvm
@@ -29,6 +38,18 @@ ENV PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 # Verify Node.js and npm installation
 RUN node -v && npm -v
 
+# Install Bun
+ENV BUN_INSTALL=/home/vscode/.bun
+RUN curl -fsSL https://bun.sh/install | bash \
+    && echo 'export BUN_INSTALL="$HOME/.bun"' >> /etc/bash.bashrc \
+    && echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> /etc/bash.bashrc
+
+# Ensure Bun is available globally
+ENV PATH=/home/vscode/.bun/bin:$PATH
+
+# Verify Bun installation
+RUN bun -v
+
 # Install Go
 RUN curl -fsSL https://go.dev/dl/go$VARIANT.linux-amd64.tar.gz -o go.tar.gz \
     && tar -C /usr/local -xzf go.tar.gz \
@@ -40,6 +61,19 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 ENV GOPATH="/go"
 
 RUN mkdir -p /go && chown -R vscode:vscode /go
+
+RUN curl -fsSL https://www.python.org/ftp/python/3.13.1/Python-3.13.1.tgz -o Python-3.13.1.tgz \
+    && tar -xzf Python-3.13.1.tgz \
+    && cd Python-3.13.1 \
+    && ./configure --enable-optimizations --prefix=/usr/local/python3.13 \
+    && make -j$(nproc) \
+    && make install \
+    && cd .. \
+    && rm -rf Python-3.13.1 Python-3.13.1.tgz
+
+ENV PATH="/usr/local/python3.13/bin:$PATH"
+
+RUN python3.13 --version && pip3 --version
 
 USER vscode
 
